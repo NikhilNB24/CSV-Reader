@@ -14,10 +14,12 @@ const CSVData_Temp = () => {
     const [csvDataFile, setCsvDataFile] = useState(null);
     const [selectedName, setSelectedName] = useState("");
     const [selectedASIN, setSelectedASIN] = useState("");
-    const fileInputRef = useRef(null);
-    let tempRows = [];
+    const [selectedHS6, setSelectedHS6] = useState("");
     const [nameDropdown, setNameDropdown] = useState([]);
     const [asinDropdown, setASINDropdown] = useState([]);
+    const [hs6Dropdown, setHS6Dropdown] = useState([]);
+    const fileInputRef = useRef(null);
+    let tempRows = [];
 
     const fetchData = async () => {
         const response = await fetch(TestData);
@@ -39,17 +41,47 @@ const CSVData_Temp = () => {
         const uniqueASINSet = new Set(data.map((item) => item.ASIN));
         const uniqueASINArray = Array.from(uniqueASINSet);
         setASINDropdown(uniqueASINArray);
+
+        const uniqueHS6Set = new Set(data.map((item) => item.HS6));
+        const uniqueHS6Array = Array.from(uniqueHS6Set);
+        setHS6Dropdown(uniqueHS6Array);
     };
 
     const filterInputData = () => {
         let cc = [];
         tempRows =
-            selectedName && selectedASIN
+            selectedName && selectedASIN && selectedHS6
+                ? data.filter((row) => {
+                      return (
+                          row.Name.toLowerCase() ===
+                              selectedName.toLowerCase() &&
+                          row.ASIN.toLowerCase() ===
+                              selectedASIN.toLowerCase() &&
+                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
+                      );
+                  })
+                : selectedName && selectedASIN
                 ? data.filter((row) => {
                       return (
                           row.Name.toLowerCase() ===
                               selectedName.toLowerCase() &&
                           row.ASIN.toLowerCase() === selectedASIN.toLowerCase()
+                      );
+                  })
+                : selectedName && selectedHS6
+                ? data.filter((row) => {
+                      return (
+                          row.Name.toLowerCase() ===
+                              selectedName.toLowerCase() &&
+                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
+                      );
+                  })
+                : selectedASIN && selectedHS6
+                ? data.filter((row) => {
+                      return (
+                          row.ASIN.toLowerCase() ===
+                              selectedASIN.toLowerCase() &&
+                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
                       );
                   })
                 : selectedName
@@ -62,6 +94,12 @@ const CSVData_Temp = () => {
                 ? data.filter((row) => {
                       return (
                           row.ASIN.toLowerCase() === selectedASIN.toLowerCase()
+                      );
+                  })
+                : selectedHS6
+                ? data.filter((row) => {
+                      return (
+                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
                       );
                   })
                 : searchASIN !== ""
@@ -180,7 +218,7 @@ const CSVData_Temp = () => {
                             value={selectedName}
                             onChange={(e) => setSelectedName(e.target.value)}
                         >
-                            <option value="">Select a category:</option>
+                            <option value="">Select category:</option>
                             {nameDropdown.map((item, index) => (
                                 <option key={index} value={item}>
                                     {item}
@@ -201,7 +239,7 @@ const CSVData_Temp = () => {
                             value={selectedASIN}
                             onChange={(e) => setSelectedASIN(e.target.value)}
                         >
-                            <option value="">Select a ASIN:</option>
+                            <option value="">Select ASIN:</option>
                             {asinDropdown.map((item, index) => (
                                 <option key={index} value={item}>
                                     {item}
@@ -210,6 +248,27 @@ const CSVData_Temp = () => {
                         </select>
                         {selectedASIN && (
                             <p className="mt-2">You selected: {selectedASIN}</p>
+                        )}
+                    </div>
+                    <div className="container mt-4">
+                        <label htmlFor="itemDropdown" className="form-label">
+                            Select an item:
+                        </label>
+                        <select
+                            id="itemDropdown"
+                            className="form-select"
+                            value={selectedHS6}
+                            onChange={(e) => setSelectedHS6(e.target.value)}
+                        >
+                            <option value="">Select HS6:</option>
+                            {hs6Dropdown.map((item, index) => (
+                                <option key={index} value={item}>
+                                    {item}
+                                </option>
+                            ))}
+                        </select>
+                        {selectedHS6 && (
+                            <p className="mt-2">You selected: {selectedHS6}</p>
                         )}
                     </div>
                     {/* <div className="container mt-4">
