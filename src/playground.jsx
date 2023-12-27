@@ -1,149 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import Papa from "papaparse";
+import TestData from "./test.csv";
 
 const YourComponent = () => {
-    const data = [
-        {
-            Id: "1",
-            Name: "Bottle",
-            ASIN: "B3",
-            HS6: "12345",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "1",
-            Name: "Bottle",
-            ASIN: "B3",
-            HS6: "12345",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "2",
-            Name: "Footwear",
-            ASIN: "F6",
-            HS6: "22",
-            Combo: "Footwear 22",
-        },
-        {
-            Id: "3",
-            Name: "Crocs",
-            ASIN: "C3",
-            HS6: "33",
-            Combo: "Crocs 33",
-        },
-        {
-            Id: "4",
-            Name: "Clothes",
-            ASIN: "C3",
-            HS6: "44",
-            Combo: "Clothes 44",
-        },
-        {
-            Id: "5",
-            Name: "Bottle",
-            ASIN: "B2",
-            HS6: "55",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "7",
-            Name: "Crocs",
-            ASIN: "C3",
-            HS6: "77",
-            Combo: "Crocs 77",
-        },
-        {
-            Id: "8",
-            Name: "Eraser",
-            ASIN: "E5",
-            HS6: "88",
-            Combo: "Eraser 88",
-        },
-        {
-            Id: "9",
-            Name: "Monitor",
-            ASIN: "M7",
-            HS6: "99",
-            Combo: "Bottle 99",
-        },
-        {
-            Id: "10",
-            Name: "Eraser",
-            ASIN: "E5",
-            HS6: "0",
-            Combo: "Bottle 0",
-        },
-        {
-            Id: "11",
-            Name: "Clothes",
-            ASIN: "C3",
-            HS6: "23",
-            Combo: "Clothes 23",
-        },
-        {
-            Id: "12",
-            Name: "Pen",
-            ASIN: "P8",
-            HS6: "34",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "13",
-            Name: "Pen ",
-            ASIN: "P8",
-            HS6: "45",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "14",
-            Name: "Crocs",
-            ASIN: "C3",
-            HS6: "56",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "15",
-            Name: "Bag",
-            ASIN: "B2",
-            HS6: "67",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "16",
-            Name: "Eraser",
-            ASIN: "E5",
-            HS6: "78",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "17",
-            Name: "Clothes",
-            ASIN: "C3",
-            HS6: "89",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "18",
-            Name: "Mobile",
-            ASIN: "M7",
-            HS6: "24",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "19",
-            Name: "Tab",
-            ASIN: "T9",
-            HS6: "46",
-            Combo: "Bottle 12345",
-        },
-        {
-            Id: "20",
-            Name: "Bag",
-            ASIN: "B3",
-            HS6: "68",
-            Combo: "Bottle 12345",
-        },
-    ];
+    const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        const response = await fetch(TestData);
+        const reader = response.body.getReader();
+        const result = await reader.read();
+        const decoder = new TextDecoder("utf-8");
+        const csvData = decoder.decode(result.value);
+
+        const parsedData = Papa.parse(csvData, {
+            header: true,
+            skipEmptyLines: true,
+        }).data;
+        setData(parsedData);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
     const groupedHS6Data = {};
     data.forEach((item) => {
         const key = item.ASIN;

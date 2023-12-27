@@ -139,7 +139,7 @@ const CSVData_Temp = () => {
     useEffect(() => {
         fetchData();
         filterInputData();
-    }, [searchASIN, searchCategory, asinDropdown]);
+    }, [searchASIN, searchCategory, asinDropdown, hs6Dropdown, nameDropdown]);
 
     console.log(nameDropdown);
 
