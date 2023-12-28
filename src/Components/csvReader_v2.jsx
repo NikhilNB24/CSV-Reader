@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import Papa from "papaparse";
-import TestData from "./test.csv";
-import CSVTable from "./table";
-import CustomTable from "./table_new";
+import TestData from "../test.csv";
+import CSVTable from "../helper/table";
 
-const CSVData_Temp = () => {
+const CSVData_v2 = () => {
     const [file, setFile] = useState(null);
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
@@ -321,4 +320,4 @@ const CSVData_Temp = () => {
     );
 };
 
-export default CSVData_Temp;
+export default CSVData_v2;

@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Papa from "papaparse";
-import TestData from "./test.csv";
+import TestData from "../test.csv";
 
 const CSVData = () => {
     const [data, setData] = useState([]);

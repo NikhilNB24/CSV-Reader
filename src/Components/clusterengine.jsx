@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Papa from "papaparse";
-import TestData from "./test.csv";
+import TestData from "../test.csv";
 
-const YourComponent = () => {
+const ClusterEngine = () => {
     const [data, setData] = useState([]);
 
     const fetchData = async () => {
@@ -126,4 +126,4 @@ const YourComponent = () => {
         </div>
     );
 };
-export default YourComponent;
+export default ClusterEngine;
