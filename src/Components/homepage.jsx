@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const isUser = localStorage.getItem("isUser");
+    const isUser = localStorage.getItem("token");
 
     const handleLoginClick = () => {
         navigate("/login");
