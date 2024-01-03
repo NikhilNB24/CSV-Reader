@@ -48,80 +48,33 @@ const CustomCSVReader = () => {
 
     const filterInputData = () => {
         let cc = [];
-        tempRows =
-            selectedName && selectedASIN && selectedHS6
-                ? data.filter((row) => {
-                      return (
-                          row.Name.toLowerCase() ===
-                              selectedName.toLowerCase() &&
-                          row.ASIN.toLowerCase() ===
-                              selectedASIN.toLowerCase() &&
-                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
-                      );
-                  })
-                : selectedName && selectedASIN
-                ? data.filter((row) => {
-                      return (
-                          row.Name.toLowerCase() ===
-                              selectedName.toLowerCase() &&
-                          row.ASIN.toLowerCase() === selectedASIN.toLowerCase()
-                      );
-                  })
-                : selectedName && selectedHS6
-                ? data.filter((row) => {
-                      return (
-                          row.Name.toLowerCase() ===
-                              selectedName.toLowerCase() &&
-                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
-                      );
-                  })
-                : selectedASIN && selectedHS6
-                ? data.filter((row) => {
-                      return (
-                          row.ASIN.toLowerCase() ===
-                              selectedASIN.toLowerCase() &&
-                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
-                      );
-                  })
-                : selectedName
-                ? data.filter((row) => {
-                      return (
-                          row.Name.toLowerCase() === selectedName.toLowerCase()
-                      );
-                  })
-                : selectedASIN
-                ? data.filter((row) => {
-                      return (
-                          row.ASIN.toLowerCase() === selectedASIN.toLowerCase()
-                      );
-                  })
-                : selectedHS6
-                ? data.filter((row) => {
-                      return (
-                          row.HS6.toLowerCase() === selectedHS6.toLowerCase()
-                      );
-                  })
-                : searchASIN !== ""
-                ? data.filter((row) => {
-                      return searchASIN.toLowerCase() === ""
-                          ? row
-                          : row.ASIN.toLowerCase() === searchASIN.toLowerCase();
-                  })
-                : searchCategory !== ""
-                ? data.filter((row) => {
-                      return searchCategory.toLowerCase() === ""
-                          ? row
-                          : row.Name.toLowerCase() ===
-                                searchCategory.toLowerCase();
-                  })
-                : data.filter((row) => {
-                      return searchASIN !== "" && searchCategory !== ""
-                          ? row.ASIN.toLowerCase() ===
-                                searchASIN.toLowerCase() &&
-                                row.Name.toLowerCase() ===
-                                    searchCategory.toLowerCase()
-                          : row;
-                  });
+        tempRows = data.filter((row) => {
+            const matchName =
+                !selectedName ||
+                row.Name.toLowerCase() === selectedName.toLowerCase();
+            const matchASIN =
+                !selectedASIN ||
+                row.ASIN.toLowerCase() === selectedASIN.toLowerCase();
+            const matchHS6 =
+                !selectedHS6 ||
+                row.HS6.toLowerCase() === selectedHS6.toLowerCase();
+            const matchSearchASIN =
+                searchASIN !== ""
+                    ? row.ASIN.toLowerCase() === searchASIN.toLowerCase()
+                    : true;
+            const matchSearchCategory =
+                searchCategory !== ""
+                    ? row.Name.toLowerCase() === searchCategory.toLowerCase()
+                    : true;
+
+            return (
+                matchName &&
+                matchASIN &&
+                matchHS6 &&
+                matchSearchASIN &&
+                matchSearchCategory
+            );
+        });
 
         tempRows.forEach((item) => {
             cc.push({
