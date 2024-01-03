@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -6,8 +6,13 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const isAuth = localStorage.getItem("token");
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuth) navigate("/");
+    });
 
     const handleLoginClick = () => {
         const loginUsername = "demo";

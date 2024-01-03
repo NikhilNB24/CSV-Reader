@@ -3,7 +3,7 @@ import Papa from "papaparse";
 import TestData from "../test.csv";
 import CSVTable from "../helper/table";
 
-const CSVData_v2 = () => {
+const CustomCSVReader = () => {
     const [file, setFile] = useState(null);
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
@@ -270,47 +270,6 @@ const CSVData_v2 = () => {
                             <p className="mt-2">You selected: {selectedHS6}</p>
                         )}
                     </div>
-                    {/* <div className="container mt-4">
-                        <div className="row">
-                            <div className="col-md-6 d-flex">
-                                <input
-                                    type="text"
-                                    id="inputField"
-                                    className="form-control me-2"
-                                    value={searchASIN}
-                                    placeholder="Search by ASIN..."
-                                    onChange={handleSearchASIN}
-                                />
-                                <button
-                                    className="btn btn-dark"
-                                    onClick={handleButtonClick}
-                                >
-                                    Ok
-                                </button>
-                            </div>
-                        </div>
-                    </div> */}
-                    {/* <div className="container mt-4">
-                        <div className="row">
-                            <div className="col-md-6 d-flex">
-                                <input
-                                    type="text"
-                                    id="inputField"
-                                    className="form-control me-2"
-                                    value={searchCategory}
-                                    placeholder="Search by Category..."
-                                    onChange={handleSearchCategory}
-                                />
-                                <button
-                                    className="btn btn-dark"
-                                    onClick={handleButtonClick}
-                                >
-                                    Ok
-                                </button>
-                            </div>
-                        </div>
-                    </div> */}
-                    <br />
                     <br />
                     <CSVTable data={data} filteredData={filteredData} />
                     {/* <CustomTable data={data} /> */}
@@ -320,4 +279,4 @@ const CSVData_v2 = () => {
     );
 };
 
-export default CSVData_v2;
+export default CustomCSVReader;
