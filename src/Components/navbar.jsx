@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const NavBar = () => {
     const isAuth = localStorage.getItem("token");
     useEffect(() => {}, [isAuth]);
-    return isAuth ? (
+    return (
         <div>
             <Navbar variant="dark" bg="dark" expand="lg">
                 <Container>
@@ -36,17 +36,6 @@ const NavBar = () => {
                 </Container>
             </Navbar>
         </div>
-    ) : (
-        <>
-            <Navbar variant="dark" bg="dark" expand="lg">
-                <Container>
-                    <Navbar.Brand href="/">
-                        <CustomIcon className="ml-6" />
-                        CLUSTER ENGINE
-                    </Navbar.Brand>
-                </Container>
-            </Navbar>
-        </>
     );
 };
 export default NavBar;

@@ -16,8 +16,7 @@ const HomePage = () => {
 
     return (
         <div className="container mt-5">
-            <h2>Welcome to the Home Page</h2>
-            <p>This is your home page content.</p>
+            <h2>Welcome to Cluster Engine</h2>
 
             {isUser ? (
                 <Button variant="primary" onClick={handleLogoutClick}>
