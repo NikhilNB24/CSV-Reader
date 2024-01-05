@@ -54,22 +54,11 @@ const ClusterEngine = () => {
         updateHS6Counts();
         updateNameCounts();
         updateComboCounts();
-    }, []);
+    }, [hs6Counts, nameCounts, comboCounts]);
 
     return (
         <div>
             <h2>HS6 Occurrences with the same ASIN</h2>
-            {/* <div>
-                <h2>HS6 Counts:</h2>
-                <ul>
-                    {Object.entries(hs6Counts).map(([element, count]) => (
-                        <li key={element}>
-                            {element}: {count}
-                        </li>
-                    ))}
-                </ul>
-            </div> */}
-
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
