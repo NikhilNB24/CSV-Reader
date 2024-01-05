@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -10,6 +10,8 @@ const StockCSVReader = () => {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [search, setSearch] = useState("");
+    const fileInputRef = useRef(null);
+    const [csvDataFile, setCsvDataFile] = useState(null);
     let tempRows = [];
 
     const fetchData = async () => {
@@ -18,6 +20,7 @@ const StockCSVReader = () => {
         const result = await reader.read();
         const decoder = new TextDecoder("utf-8");
         const csvData = decoder.decode(result.value);
+
         const parsedData = Papa.parse(csvData, {
             header: true,
             skipEmptyLines: true,
@@ -33,10 +36,10 @@ const StockCSVReader = () => {
 
         tempRows.forEach((item) => {
             cc.push({
-                Id: item?.Id,
                 Name: item?.Name,
                 ASIN: item?.ASIN,
                 HS6: item?.HS6,
+                ClusterId: item?.ClusterId,
             });
         });
         setFilteredData(cc);
@@ -47,24 +50,43 @@ const StockCSVReader = () => {
         fetchData();
     }, [search]);
 
+    const handleFileUpload = () => {
+        const file = fileInputRef?.current?.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const content = e?.target?.result;
+                //console.log(content);
+                setCsvDataFile(content);
+            };
+            reader.readAsText(file);
+        }
+    };
+
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
     };
 
     return (
         <>
+            <div className="container mt-4">
+                <div className="row">
+                    <div className="col-md-6 d-flex">
+                        <input type="file" accept=".csv" ref={fileInputRef} />
+                        <button
+                            className="btn btn-dark"
+                            onClick={handleFileUpload}
+                        >
+                            Upload
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             {data?.length ? (
                 <Container>
                     <h2 className="text-center m-4">CSV Reader</h2>
-
-                    <h6 className="m-2">Total items: {data.length}</h6>
-                    <h6 className="m-2">
-                        Filtered items: {filteredData.length}
-                    </h6>
-                    <h6 className="m-2">
-                        Efficiency: {(filteredData.length / data.length) * 100}{" "}
-                        %
-                    </h6>
 
                     <Form>
                         <InputGroup className="my-3">
@@ -77,44 +99,29 @@ const StockCSVReader = () => {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Name</th>
                                 <th>ASIN</th>
                                 <th>HS6</th>
+                                <th>Cluster Id</th>
                             </tr>
                         </thead>
-                        {/* <tbody>
-                            {data
-                                .filter((row) => {
-                                    return search.toLowerCase() === ""
-                                        ? row
-                                        : row.ASIN.includes(search);
-                                })
-                                .map((row, index) => (
-                                    <tr key={index}>
-                                        <td>{row.Id}</td>
-                                        <td>{row.Name}</td>
-                                        <td>{row.ASIN}</td>
-                                        <td>{row.HS6}</td>
-                                    </tr>
-                                ))}
-                        </tbody> */}
+
                         <tbody>
                             {filteredData?.length > 0
                                 ? filteredData.map((row, index) => (
                                       <tr key={index}>
-                                          <td>{row.Id}</td>
                                           <td>{row.Name}</td>
                                           <td>{row.ASIN}</td>
                                           <td>{row.HS6}</td>
+                                          <td>{row.ClusterId}</td>
                                       </tr>
                                   ))
                                 : data.map((row, index) => (
                                       <tr key={index}>
-                                          <td>{row.Id}</td>
                                           <td>{row.Name}</td>
                                           <td>{row.ASIN}</td>
                                           <td>{row.HS6}</td>
+                                          <td>{row.ClusterId}</td>
                                       </tr>
                                   ))}
                         </tbody>

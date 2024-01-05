@@ -20,7 +20,7 @@ const Login2 = () => {
 
         if (username === loginUsername && password === loginPassword) {
             localStorage.setItem("token", true);
-            navigate("/");
+            navigate("/csvreader");
         } else {
             setError("Invalid username or password");
         }

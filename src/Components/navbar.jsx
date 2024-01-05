@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import CustomIcon from "../Icons/CustomIcon";
 import { Navbar, Nav } from "react-bootstrap";
+import { useEffect } from "react";
 
 const NavBar = () => {
-    return (
+    const isAuth = localStorage.getItem("token");
+    useEffect(() => {}, [isAuth]);
+    return isAuth ? (
         <div>
             <Navbar variant="dark" bg="dark" expand="lg">
                 <Container>
@@ -33,6 +36,17 @@ const NavBar = () => {
                 </Container>
             </Navbar>
         </div>
+    ) : (
+        <>
+            <Navbar variant="dark" bg="dark" expand="lg">
+                <Container>
+                    <Navbar.Brand href="/">
+                        <CustomIcon className="ml-6" />
+                        CLUSTER ENGINE
+                    </Navbar.Brand>
+                </Container>
+            </Navbar>
+        </>
     );
 };
 export default NavBar;

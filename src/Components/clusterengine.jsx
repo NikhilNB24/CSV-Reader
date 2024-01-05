@@ -5,6 +5,9 @@ import TestData from "../test.csv";
 
 const ClusterEngine = () => {
     const [data, setData] = useState([]);
+    const [hs6Counts, setHS6Counts] = useState({});
+    const [nameCounts, setNameCounts] = useState({});
+    const [comboCounts, setComboCounts] = useState({});
 
     const fetchData = async () => {
         const response = await fetch(TestData);
@@ -22,57 +25,65 @@ const ClusterEngine = () => {
 
     useEffect(() => {
         fetchData();
+        const updateHS6Counts = () => {
+            const counths6 = {};
+            data.forEach((item) => {
+                const itemName = item.HS6;
+                counths6[itemName] = (counths6[itemName] || 0) + 1;
+            });
+            setHS6Counts(counths6);
+        };
+
+        const updateNameCounts = () => {
+            const countName = {};
+            data.forEach((item) => {
+                const itemName = item.Name;
+                countName[itemName] = (countName[itemName] || 0) + 1;
+            });
+            setNameCounts(countName);
+        };
+
+        const updateComboCounts = () => {
+            const countCombo = {};
+            data.forEach((item) => {
+                const itemName = item.ClusterId;
+                countCombo[itemName] = (countCombo[itemName] || 0) + 1;
+            });
+            setComboCounts(countCombo);
+        };
+        updateHS6Counts();
+        updateNameCounts();
+        updateComboCounts();
     }, []);
-    const groupedHS6Data = {};
-    data.forEach((item) => {
-        const key = item.ASIN;
-        if (!groupedHS6Data[key]) {
-            groupedHS6Data[key] = [];
-        }
-        groupedHS6Data[key].push(item.HS6);
-    });
-
-    const groupedNameData = {};
-    data.forEach((item) => {
-        const key = item.ASIN;
-        if (!groupedNameData[key]) {
-            groupedNameData[key] = [];
-        }
-        groupedNameData[key].push(item.Name);
-    });
-
-    const groupedComboData = {};
-    data.forEach((item) => {
-        const key = item.ASIN;
-        if (!groupedComboData[key]) {
-            groupedComboData[key] = [];
-        }
-        groupedComboData[key].push(item.Combo);
-    });
 
     return (
         <div>
             <h2>HS6 Occurrences with the same ASIN</h2>
+            {/* <div>
+                <h2>HS6 Counts:</h2>
+                <ul>
+                    {Object.entries(hs6Counts).map(([element, count]) => (
+                        <li key={element}>
+                            {element}: {count}
+                        </li>
+                    ))}
+                </ul>
+            </div> */}
+
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
-                        {/* <th>ASIN</th> */}
                         <th>HS6</th>
                         <th>Efficiency (in %)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.entries(groupedHS6Data).map(
-                        ([asin, hs6Values], index) => (
-                            <tr key={index}>
-                                {/* <td>{asin}</td> */}
-                                <td>{hs6Values.join(", ")}</td>
-                                <td>
-                                    {(hs6Values.length / data.length) * 100} %
-                                </td>
-                            </tr>
-                        )
-                    )}
+                    {Object.entries(hs6Counts).map(([element, count]) => (
+                        <tr key={element}>
+                            <td>{element}</td>
+                            <td>{(parseInt(count) / data?.length) * 100}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
 
@@ -80,23 +91,17 @@ const ClusterEngine = () => {
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
-                        {/* <th>ASIN</th> */}
                         <th>Name</th>
                         <th>Efficiency (in %)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.entries(groupedNameData).map(
-                        ([asin, nameValues], index) => (
-                            <tr key={index}>
-                                {/* <td>{asin}</td> */}
-                                <td>{nameValues.join(", ")}</td>
-                                <td>
-                                    {(nameValues.length / data.length) * 100} %
-                                </td>
-                            </tr>
-                        )
-                    )}
+                    {Object.entries(nameCounts).map(([element, count]) => (
+                        <tr key={element}>
+                            <td>{element}</td>
+                            <td>{(count / data?.length) * 100}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
 
@@ -104,23 +109,17 @@ const ClusterEngine = () => {
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
-                        {/* <th>ASIN</th> */}
                         <th>Combo</th>
                         <th>Efficiency (in %)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.entries(groupedComboData).map(
-                        ([asin, comboValues], index) => (
-                            <tr key={index}>
-                                {/* <td>{asin}</td> */}
-                                <td>{comboValues.join(", ")}</td>
-                                <td>
-                                    {(comboValues.length / data.length) * 100} %
-                                </td>
-                            </tr>
-                        )
-                    )}
+                    {Object.entries(comboCounts).map(([element, count]) => (
+                        <tr key={element}>
+                            <td>{element}</td>
+                            <td>{(count / data?.length) * 100}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>

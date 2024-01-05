@@ -10,14 +10,13 @@ const CustomCSVReader = () => {
     const [searchASIN, setSearchASIN] = useState("");
     const [searchCategory, setSearchCategory] = useState("");
     const [isSubmit, setIsSubmit] = useState(false);
-    const [csvDataFile, setCsvDataFile] = useState(null);
     const [selectedName, setSelectedName] = useState("");
     const [selectedASIN, setSelectedASIN] = useState("");
     const [selectedHS6, setSelectedHS6] = useState("");
     const [nameDropdown, setNameDropdown] = useState([]);
     const [asinDropdown, setASINDropdown] = useState([]);
     const [hs6Dropdown, setHS6Dropdown] = useState([]);
-    const fileInputRef = useRef(null);
+
     let tempRows = [];
 
     const fetchData = async () => {
@@ -78,10 +77,10 @@ const CustomCSVReader = () => {
 
         tempRows.forEach((item) => {
             cc.push({
-                Id: item?.Id,
                 Name: item?.Name,
                 ASIN: item?.ASIN,
                 HS6: item?.HS6,
+                ClusterId: item?.ClusterId,
             });
         });
         setFilteredData(cc);
@@ -94,20 +93,6 @@ const CustomCSVReader = () => {
     }, [searchASIN, searchCategory, asinDropdown, hs6Dropdown, nameDropdown]);
 
     console.log(nameDropdown);
-
-    const handleFileUpload = () => {
-        const file = fileInputRef?.current?.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const content = e?.target?.result;
-                //console.log(content);
-                setCsvDataFile(content);
-            };
-            reader.readAsText(file);
-        }
-    };
 
     const handleSearchASIN = (e) => {
         setSearchASIN(e.target.value);
@@ -125,25 +110,6 @@ const CustomCSVReader = () => {
         <>
             {data?.length ? (
                 <>
-                    <h2 className="text-center m-4">CSV Reader</h2>
-                    <div className="container mt-4">
-                        <div className="row">
-                            <div className="col-md-6 d-flex">
-                                <input
-                                    type="file"
-                                    accept=".csv"
-                                    ref={fileInputRef}
-                                />
-                                <button
-                                    className="btn btn-dark"
-                                    onClick={handleFileUpload}
-                                >
-                                    Upload
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                     <h6 className="m-2">Total items: {data.length}</h6>
                     {isSubmit || true ? (
                         <>
