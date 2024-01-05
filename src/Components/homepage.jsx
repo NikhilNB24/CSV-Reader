@@ -7,7 +7,7 @@ const HomePage = () => {
     const isUser = localStorage.getItem("token");
 
     const handleLoginClick = () => {
-        navigate("/login");
+        navigate("/login2");
     };
     const handleLogoutClick = () => {
         localStorage.clear();
