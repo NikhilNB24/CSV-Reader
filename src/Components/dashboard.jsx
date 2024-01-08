@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Papa from "papaparse";
 import TestData from "../test.csv";
 import CSVTable from "../helper/table";
+import DownloadButton from "../helper/download";
 
 const Dashboard = () => {
     const [file, setFile] = useState(null);
@@ -91,20 +92,6 @@ const Dashboard = () => {
         fetchData();
         filterInputData();
     }, [searchASIN, searchCategory, asinDropdown, hs6Dropdown, nameDropdown]);
-
-    console.log(nameDropdown);
-
-    const handleSearchASIN = (e) => {
-        setSearchASIN(e.target.value);
-    };
-
-    const handleSearchCategory = (e) => {
-        setSearchCategory(e.target.value);
-    };
-
-    const handleButtonClick = () => {
-        setIsSubmit(!isSubmit);
-    };
 
     return (
         <>
@@ -204,7 +191,7 @@ const Dashboard = () => {
                             <div className="col-md-6">
                                 <br />
                                 <br />
-                                <br />
+                                <DownloadButton data={filteredData} />
                                 <table className="table table-bordered">
                                     <tbody>
                                         <tr>
