@@ -17,6 +17,9 @@ const Dashboard = () => {
     const [nameDropdown, setNameDropdown] = useState([]);
     const [asinDropdown, setASINDropdown] = useState([]);
     const [hs6Dropdown, setHS6Dropdown] = useState([]);
+    const [hs6Count, seths6Count] = useState(0);
+    const [nameCount, setNameCount] = useState(0);
+    const [comboCount, setComboCount] = useState(0);
 
     let tempRows = [];
 
@@ -32,6 +35,15 @@ const Dashboard = () => {
             skipEmptyLines: true,
         }).data;
         setData(parsedData);
+
+        const filteredhs6List = data.filter((obj) => obj.HS6 !== "");
+        seths6Count(filteredhs6List.length);
+
+        const filteredNameList = data.filter((obj) => obj.Name !== "");
+        setNameCount(filteredNameList.length);
+
+        const filteredComboList = data.filter((obj) => obj.Combo !== "");
+        setComboCount(filteredComboList.length);
 
         const uniqueNamesSet = new Set(data.map((item) => item.Name));
         const uniqueNamesArray = Array.from(uniqueNamesSet);
@@ -85,7 +97,6 @@ const Dashboard = () => {
             });
         });
         setFilteredData(cc);
-        console.log(filteredData);
     };
 
     useEffect(() => {
@@ -115,9 +126,7 @@ const Dashboard = () => {
                                             setSelectedName(e.target.value)
                                         }
                                     >
-                                        <option value="">
-                                            Select category:
-                                        </option>
+                                        <option value="">Select Name:</option>
                                         {nameDropdown.map((item, index) => (
                                             <option key={index} value={item}>
                                                 {item}
@@ -190,10 +199,32 @@ const Dashboard = () => {
 
                             <div className="col-md-6">
                                 <br />
-                                <br />
                                 <DownloadButton data={filteredData} />
                                 <table className="table table-bordered">
                                     <tbody>
+                                        <tr>
+                                            <td>HS6 Efficiency:</td>
+                                            <td>
+                                                {(hs6Count / data.length) * 100}{" "}
+                                                %
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Name Efficiency:</td>
+                                            <td>
+                                                {(nameCount / data.length) *
+                                                    100}{" "}
+                                                %
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Combo Efficiency:</td>
+                                            <td>
+                                                {(comboCount / data.length) *
+                                                    100}{" "}
+                                                %
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td>Total items:</td>
                                             <td>{data.length}</td>
