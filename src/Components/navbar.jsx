@@ -22,11 +22,11 @@ const NavBar = () => {
                         style={{ justifyContent: "end" }}
                     >
                         <Nav>
-                            <Nav.Link href="/csvreader" className="mx-4">
-                                Stock CSV Reader
+                            <Nav.Link href="/rawdata" className="mx-4">
+                                Raw Data
                             </Nav.Link>
-                            <Nav.Link href="/filter" className="mx-4">
-                                Custom CSV Reader
+                            <Nav.Link href="/dashboard" className="mx-4">
+                                Dashboard
                             </Nav.Link>
                             <Nav.Link href="/clusterengine" className="mx-4">
                                 Cluster Engine

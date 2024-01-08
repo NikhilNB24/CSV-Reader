@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 const CSVTable = ({ data, filteredData }) => {
     return (
         <>
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Name</th>

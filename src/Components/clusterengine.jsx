@@ -59,7 +59,7 @@ const ClusterEngine = () => {
     return (
         <div>
             <h2>HS6 Occurrences with the same ASIN</h2>
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>HS6</th>
@@ -77,7 +77,7 @@ const ClusterEngine = () => {
             </Table>
 
             <h2>Name Occurrences with the same ASIN</h2>
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -95,7 +95,7 @@ const ClusterEngine = () => {
             </Table>
 
             <h2>Combo Occurrences with the same ASIN</h2>
-            <Table striped bordered hover variant="dark">
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Combo</th>

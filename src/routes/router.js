@@ -1,12 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap";
-import StockCSVReader from "../Components/csvreader";
-import CustomCSVReader from "../Components/csvReader_v2";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RawData from "../Components/rawdata";
+import Dashboard from "../Components/dashboard";
 import ClusterEngine from "../Components/clusterengine";
-import Login2 from "../Components/login2";
+import Login from "../Components/login";
 import HomePage from "../Components/homepage";
-import CustomIcon from "../Icons/CustomIcon";
 import NavBar from "../Components/navbar";
 import PrivateRoute from "./PrivateRoute";
 
@@ -16,11 +14,11 @@ const AppRouter = () => {
             <NavBar />
             <Routes>
                 <Route element={<PrivateRoute />}>
-                    <Route path="/csvreader" element={<StockCSVReader />} />
-                    <Route path="/filter" element={<CustomCSVReader />} />
+                    <Route path="/rawdata" element={<RawData />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/clusterengine" element={<ClusterEngine />} />
                 </Route>
-                <Route path="/login2" element={<Login2 />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/" element={<HomePage />} exact />
             </Routes>
         </Router>

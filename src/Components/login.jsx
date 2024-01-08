@@ -20,7 +20,7 @@ const Login = () => {
 
         if (username === loginUsername && password === loginPassword) {
             localStorage.setItem("token", true);
-            navigate("/");
+            navigate("/rawdata");
         } else {
             setError("Invalid username or password");
         }
@@ -52,6 +52,8 @@ const Login = () => {
                         </Form.Group>
 
                         {error && <p className="text-danger">{error}</p>}
+
+                        <br />
 
                         <Button variant="primary" onClick={handleLoginClick}>
                             Login

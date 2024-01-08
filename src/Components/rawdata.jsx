@@ -6,7 +6,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Papa from "papaparse";
 import TestData from "../test.csv";
 
-const StockCSVReader = () => {
+const RawData = () => {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [search, setSearch] = useState("");
@@ -132,4 +132,4 @@ const StockCSVReader = () => {
     );
 };
 
-export default StockCSVReader;
+export default RawData;
