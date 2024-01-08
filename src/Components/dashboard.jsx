@@ -42,9 +42,9 @@ const Dashboard = () => {
         const filteredNameList = data.filter((obj) => obj.Name !== "");
         setNameCount(filteredNameList.length);
 
-        const filteredComboList = data.filter((obj) => obj.Combo !== "");
+        const filteredComboList = data.filter((obj) => obj.ClusterId !== "");
         setComboCount(filteredComboList.length);
-
+        debugger;
         const uniqueNamesSet = new Set(data.map((item) => item.Name));
         const uniqueNamesArray = Array.from(uniqueNamesSet);
         setNameDropdown(uniqueNamesArray);
