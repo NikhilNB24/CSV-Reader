@@ -31,6 +31,9 @@ const NavBar = () => {
                             <Nav.Link href="/clusterengine" className="mx-4">
                                 Cluster Engine
                             </Nav.Link>
+                            <Nav.Link href="/upload" className="mx-4">
+                                Upload
+                            </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

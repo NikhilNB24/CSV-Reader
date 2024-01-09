@@ -5,6 +5,7 @@ import Dashboard from "../Components/dashboard";
 import ClusterEngine from "../Components/clusterengine";
 import Login from "../Components/login";
 import HomePage from "../Components/homepage";
+import CsvUploader from "../Components/upload";
 import NavBar from "../Components/navbar";
 import PrivateRoute from "./PrivateRoute";
 
@@ -17,6 +18,7 @@ const AppRouter = () => {
                     <Route path="/rawdata" element={<RawData />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/clusterengine" element={<ClusterEngine />} />
+                    <Route path="/upload" element={<CsvUploader />} />
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<HomePage />} exact />

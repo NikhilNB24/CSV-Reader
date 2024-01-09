@@ -70,23 +70,23 @@ const RawData = () => {
 
     return (
         <>
+            <h3>RAW DATA</h3>
             <div className="container mt-4">
                 <div className="row">
                     <div className="col-md-6 d-flex">
-                        <input type="file" accept=".csv" ref={fileInputRef} />
-                        <button
+                        <input
                             className="btn btn-dark"
-                            onClick={handleFileUpload}
-                        >
-                            Upload
-                        </button>
+                            type="file"
+                            accept=".csv"
+                            ref={fileInputRef}
+                        />
                     </div>
                 </div>
             </div>
 
             {data?.length ? (
                 <Container>
-                    <h2 className="text-center m-4">CSV Reader</h2>
+                    <h3 className="text-center m-4">CSV Reader</h3>
 
                     <Form>
                         <InputGroup className="my-3">

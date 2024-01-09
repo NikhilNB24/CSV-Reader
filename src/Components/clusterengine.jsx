@@ -57,61 +57,66 @@ const ClusterEngine = () => {
     }, [hs6Counts, nameCounts, comboCounts]);
 
     return (
-        <div>
-            <h2>HS6 Occurrences with the same ASIN</h2>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>HS6</th>
-                        <th>Efficiency (in %)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.entries(hs6Counts).map(([element, count]) => (
-                        <tr key={element}>
-                            <td>{element}</td>
-                            <td>{(parseInt(count) / data?.length) * 100}</td>
+        <>
+            <h3>CLUSTER ENGINE</h3>
+            <div>
+                <h3>HS6 Occurrences with the same ASIN</h3>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>HS6</th>
+                            <th>Efficiency (in %)</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {Object.entries(hs6Counts).map(([element, count]) => (
+                            <tr key={element}>
+                                <td>{element}</td>
+                                <td>
+                                    {(parseInt(count) / data?.length) * 100}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
 
-            <h2>Name Occurrences with the same ASIN</h2>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Efficiency (in %)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.entries(nameCounts).map(([element, count]) => (
-                        <tr key={element}>
-                            <td>{element}</td>
-                            <td>{(count / data?.length) * 100}</td>
+                <h3>Name Occurrences with the same ASIN</h3>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Efficiency (in %)</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {Object.entries(nameCounts).map(([element, count]) => (
+                            <tr key={element}>
+                                <td>{element}</td>
+                                <td>{(count / data?.length) * 100}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
 
-            <h2>Combo Occurrences with the same ASIN</h2>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Combo</th>
-                        <th>Efficiency (in %)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.entries(comboCounts).map(([element, count]) => (
-                        <tr key={element}>
-                            <td>{element}</td>
-                            <td>{(count / data?.length) * 100}</td>
+                <h3>Combo Occurrences with the same ASIN</h3>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Combo</th>
+                            <th>Efficiency (in %)</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {Object.entries(comboCounts).map(([element, count]) => (
+                            <tr key={element}>
+                                <td>{element}</td>
+                                <td>{(count / data?.length) * 100}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        </>
     );
 };
 export default ClusterEngine;

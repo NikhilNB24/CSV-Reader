@@ -29,7 +29,7 @@ const Login = () => {
         <Container>
             <Row className="justify-content-md-center">
                 <Col md={6}>
-                    <h2 className="mt-5 mb-3">Login</h2>
+                    <h3 className="mt-5 mb-3">Login</h3>
                     <Form>
                         <Form.Group controlId="formUsername">
                             <Form.Label>Username</Form.Label>
